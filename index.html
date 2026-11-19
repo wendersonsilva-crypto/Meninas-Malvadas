@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Meninas Malvadas test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Meninas Malvadas test</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <style>
@@ -38,11 +38,11 @@
       overflow: hidden;
     }
 
-    /* Dimensões otimizadas para tela vertical de celular */
+    /* Dimensões otimizadas para tela vertical */
     .book {
       position: relative;
-      width: min(86vw, 360px);
-      max-height: 76dvh;
+      width: min(82vw, 350px);
+      max-height: 74dvh;
       aspect-ratio: 720 / 950;
       transform-style: preserve-3d;
       transition: transform 1.25s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.8s ease;
@@ -53,18 +53,19 @@
       transform: rotateY(-2deg) rotateX(1deg) scale(1.015);
     }
 
+    /* Desktop: abre mantendo o tamanho */
     .book.is-open {
-      transform: translateX(48%) rotateY(0deg) rotateX(0deg);
+      transform: translateX(50%) rotateY(0deg) rotateX(0deg);
     }
 
-    /* Ajuste específico de abertura para telas de celular */
+    /* Celular: afasta o livro (scale 0.46) ao abrir para caber as duas páginas inteiras na tela */
     @media (max-width: 640px) {
       .book {
-        width: min(85vw, 340px);
+        width: min(80vw, 320px);
       }
 
       .book.is-open {
-        transform: translateX(50%) scale(0.95) rotateY(0deg) rotateX(0deg);
+        transform: translateX(50%) scale(0.46) rotateY(0deg) rotateX(0deg);
       }
 
       .kiss-hotspot {
@@ -85,7 +86,7 @@
     }
 
     .book.is-open .book-shadow {
-      opacity: 0.12;
+      opacity: 0.15;
     }
 
     .book-pages-edge {
@@ -105,7 +106,6 @@
       box-shadow: inset 0 0 4px rgba(0,0,0,0.15);
     }
 
-    /* Lombada esquerda do livro */
     .book-spine {
       position: absolute;
       top: 0;
@@ -118,7 +118,6 @@
       box-shadow: inset 0 0 8px rgba(0,0,0,0.25);
     }
 
-    /* Página interna branca */
     .inside-page {
       position: absolute;
       inset: 2px;
@@ -144,7 +143,6 @@
       pointer-events: none;
     }
 
-    /* Capa articulada */
     .cover-wrapper {
       position: absolute;
       inset: 0;
@@ -158,7 +156,6 @@
       transform: rotateY(-180deg);
     }
 
-    /* Frente da Capa */
     .cover-front {
       position: absolute;
       inset: 0;
@@ -254,21 +251,11 @@
     }
 
     @keyframes kissPulse {
-      0% {
-        opacity: 0.8;
-        transform: scale(0.9);
-      }
-      70% {
-        opacity: 0;
-        transform: scale(1.25);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.25);
-      }
+      0% { opacity: 0.8; transform: scale(0.9); }
+      70% { opacity: 0; transform: scale(1.25); }
+      100% { opacity: 0; transform: scale(1.25); }
     }
 
-    /* Tela interna em modo mobile */
     .white-page-screen {
       position: fixed;
       inset: 0;
@@ -307,15 +294,14 @@
 
   <main class="scene" id="scene">
     
-    <div id="topHint" class="fixed top-6 left-1/2 -translate-x-1/2 z-30 text-center pointer-events-none transition-opacity duration-500 w-full px-4">
-      <span class="inline-block bg-black/50 backdrop-blur-xs text-pink-200 text-xs font-medium px-3.5 py-1.5 rounded-full border border-pink-400/25">
-        Toque no beijo para abrir 💋
-      </span>
+    <div id="topHint" class="fixed top-6 left-1/2 -translate-x-1/2 z-30 text-center pointer-events-none transition-opacity duration-500">
     </div>
 
     <div class="book" id="book">
       <div class="book-shadow"></div>
+
       <div class="book-spine"></div>
+
       <div class="book-pages-edge"></div>
 
       <div class="inside-page">
@@ -336,9 +322,10 @@
             type="button"
             id="kissHotspot"
             class="kiss-hotspot group"
-            aria-label="Toque no beijo para abrir o livro"
-            title="Toque no beijo para abrir"
+            aria-label="Clique no beijo para abrir o livro"
+            title="Clique no beijo para abrir"
           >
+  
             <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black/80 text-white text-[11px] font-medium px-2.5 py-1 rounded-full shadow-md pointer-events-none">
               Abrir livro 💋
             </span>
@@ -351,11 +338,8 @@
 
     <div
       id="missToast"
-      class="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 opacity-0 pointer-events-none transition-all duration-300 translate-y-2 w-max max-w-[90vw]"
+      class="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 opacity-0 pointer-events-none transition-all duration-300 translate-y-2"
     >
-      <div class="bg-black/80 backdrop-blur-xs text-pink-100 text-xs font-medium px-4 py-2 rounded-full border border-pink-400/30 shadow-lg">
-        Toque exatamente na marca de beijo 💋
-      </div>
     </div>
   </main>
 
@@ -363,17 +347,17 @@
     <button
       type="button"
       id="resetBtn"
-      class="fixed top-4 right-4 z-50 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-neutral-100 hover:bg-neutral-200 active:scale-95 text-neutral-700 text-xs font-medium border border-neutral-200 shadow-sm transition-all cursor-pointer"
+      class="fixed top-5 right-5 z-50 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-100 hover:bg-neutral-200 active:scale-95 text-neutral-700 text-xs sm:text-sm font-medium border border-neutral-200 shadow-sm transition-all cursor-pointer"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-rose-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rose-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
         <path d="M3 3v5h5"/>
       </svg>
       Fechar livro
     </button>
 
-    <div id="whitePageContent" class="w-full max-w-md mx-auto text-center">
-      <!-- Conteúdo interno do livro para celular -->
+    <div id="whitePageContent" class="w-full max-w-2xl text-center">
+
     </div>
   </section>
 
@@ -449,4 +433,4 @@
     });
   </script>
 </body>
-</html>
+</html> 
