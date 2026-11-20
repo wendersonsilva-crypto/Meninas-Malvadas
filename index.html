@@ -51,18 +51,16 @@
     .book:hover:not(.is-open) {
       transform: rotateY(-2deg) rotateX(1deg) scale(1.015);
     }
-
     .book.is-open {
       transform: translateX(48%) rotateY(0deg) rotateX(0deg);
     }
-
     @media (max-width: 640px) {
       .book {
-        width: min(85vw, 350px);
+        width: min(82vw, 340px);
       }
 
       .book.is-open {
-        transform: translateX(0%) scale(1.04) rotateY(0deg) rotateX(0deg);
+        transform: translateX(-25%) scale(0.85) rotateY(0deg) rotateX(0deg);
       }
 
       .kiss-hotspot {
